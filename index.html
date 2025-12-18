@@ -14,18 +14,7 @@
       width: 100%;
       height: 100%;
       font-family: Arial, sans-serif;
-    }
-
-    /* Белый фон */
-    body {
-      background-color: #ffffff;
-    }
-
-    /* Затемнение фона под окном */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.55);
+      background-color: #ffffff; /* чистый белый фон */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -39,7 +28,7 @@
       background: #000;
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     }
 
     iframe {
@@ -51,10 +40,8 @@
 </head>
 <body>
 
-  <div class="overlay">
-    <div class="frame-container">
-      <iframe src="https://m.volnorez.com/music-club-zolushka" allow="autoplay"></iframe>
-    </div>
+  <div class="frame-container">
+    <iframe src="https://m.volnorez.com/music-club-zolushka" allow="autoplay"></iframe>
   </div>
 
   <script>
