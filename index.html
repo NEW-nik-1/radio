@@ -16,13 +16,12 @@
       font-family: Arial, sans-serif;
     }
 
-    /* Фон */
+    /* Белый фон */
     body {
-      background: url('https://github.com/NEW-nik-1/radio/blob/main/fon-radio1.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background-color: #ffffff;
     }
 
-    /* Затемнение фона */
+    /* Затемнение фона под окном */
     .overlay {
       position: fixed;
       inset: 0;
@@ -60,7 +59,9 @@
 
   <script>
     if (window.vkBridge) {
-      vkBridge.send('VKWebAppInit');
+      vkBridge.send('VKWebAppInit')
+        .then(() => console.log('VK Bridge initialized'))
+        .catch(err => console.error('VK Bridge error:', err));
     }
   </script>
 
