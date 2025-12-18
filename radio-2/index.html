@@ -3,13 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Радио онлайн</title>
 </head>
 <body>
     <h1>Слушайте Радио онлайн бесплатно</h1>
 
-    <!-- Здесь вставляем код радио -->
-    <div class="RP-SCRIPT" data-height="2" data-style="dark"><a class="RP-LINK" href="https://radiopotok.ru/"></a></div><script defer src="https://radiopotok.ru/f/script6/fa6b649360b7f016c67fad805fc1a899185ce1369959c6b22856a9963d68e8ec.js" charset="UTF-8"></script>
+    <!-- Код радио -->
+    <div class="RP-SCRIPT" data-height="50" data-style="dark">
+        <a class="RP-LINK" href="https://radiopotok.ru/">Радио онлайн</a>
+    </div>
+    <script defer src="https://radiopotok.ru/f/script6/fa6b649360b7f016c67fad805fc1a899185ce1369959c6b22856a9963d68e8ec.js" charset="UTF-8"></script>
+
+    <!-- VK Bridge -->
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+
+    <script>
+        // Инициализация VK Bridge
+        vkBridge.send('VKWebAppInit');
+    </script>
 
 </body>
 </html>
+
