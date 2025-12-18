@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Запуск радио</title>
+  <title>Радио Золушка</title>
 
   <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 
@@ -13,65 +13,55 @@
       padding: 0;
       width: 100%;
       height: 100%;
-      background: #000;
       font-family: Arial, sans-serif;
     }
 
-    /* Верхняя шапка */
-    .header {
-      position: relative;
-      width: 100%;
-      height: 120px; /* высота полоски */
-      overflow: hidden;
+    /* Фон */
+    body {
+      background: url('background.jpeg') no-repeat center center fixed;
+      background-size: cover;
     }
 
-    .header img {
+    /* Затемнение фона */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Окно с сайтом */
+    .frame-container {
+      width: 95%;
+      height: 90%;
+      max-width: 1200px;
+      background: #000;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    }
+
+    iframe {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .title {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      font-size: 22px;
-      font-weight: bold;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.8);
-      background: rgba(0,0,0,0.4);
-      padding: 6px 14px;
-      border-radius: 10px;
-    }
-
-    .loading {
-      color: #777;
-      text-align: center;
-      margin-top: 40px;
+      border: none;
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <img src="./background.jpeg" alt="Радио" />
-    <div class="title">Радио Золушка</div>
+  <div class="overlay">
+    <div class="frame-container">
+      <iframe src="https://m.volnorez.com/music-club-zolushka" allow="autoplay"></iframe>
+    </div>
   </div>
-
-  <div class="loading">Загрузка…</div>
 
   <script>
     if (window.vkBridge) {
       vkBridge.send('VKWebAppInit');
     }
-
-    const targetUrl = 'https://m.volnorez.com/music-club-zolushka';
-
-    setTimeout(() => {
-      window.location.href = targetUrl;
-    }, 1500);
   </script>
 
 </body>
