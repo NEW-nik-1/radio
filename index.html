@@ -14,8 +14,9 @@
       width: 100%;
       height: 100%;
       font-family: Arial, sans-serif;
-      background-color: #ffffff; /* чистый белый фон */
+      background-color: #DCDCDC;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
     }
@@ -23,7 +24,7 @@
     /* Окно с сайтом */
     .frame-container {
       width: 95%;
-      height: 90%;
+      height: 80%;
       max-width: 1200px;
       background: #DCDCDC;
       border-radius: 16px;
@@ -36,12 +37,36 @@
       height: 100%;
       border: none;
     }
+
+    /* Ссылка на автора — маленькая, серая, слева */
+    .author-link {
+      margin-top: 8px;
+      width: 95%;
+      max-width: 1200px;
+      text-align: left; /* выравнивание по левому краю */
+      font-size: 12px; /* маленький шрифт */
+      color: #888888; /* серый цвет текста */
+    }
+
+    .author-link a {
+      text-decoration: none;
+      color: #888888;
+      font-weight: normal;
+    }
+
+    .author-link a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
 
   <div class="frame-container">
     <iframe src="https://m.volnorez.com/music-club-zolushka" allow="autoplay"></iframe>
+  </div>
+
+  <div class="author-link">
+    <a href="https://vk.com/muzer_play" target="_blank">приложение сделано автором</a>
   </div>
 
   <script>
