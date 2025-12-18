@@ -17,19 +17,21 @@
       background-color: #DCDCDC;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
     }
 
     /* Окно с сайтом */
     .frame-container {
       width: 95%;
-      height: 80%;
       max-width: 1200px;
+      flex-grow: 1;
       background: #DCDCDC;
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      margin-top: 20px;
+      margin-bottom: 20px;
     }
 
     iframe {
@@ -38,24 +40,31 @@
       border: none;
     }
 
-    /* Ссылка на автора — маленькая, серая, слева */
+    /* Ссылка на автора — внизу с анимацией */
     .author-link {
-      margin-top: 8px;
       width: 95%;
       max-width: 1200px;
-      text-align: left; /* выравнивание по левому краю */
-      font-size: 12px; /* маленький шрифт */
-      color: #888888; /* серый цвет текста */
+      text-align: left;
+      font-size: 12px;
+      color: #888888;
+      margin-bottom: 16px;
+      animation: fadeColor 2s infinite alternate;
     }
 
     .author-link a {
       text-decoration: none;
-      color: #888888;
+      color: inherit; /* наследует цвет от родителя */
       font-weight: normal;
     }
 
     .author-link a:hover {
       text-decoration: underline;
+    }
+
+    /* Анимация цвета текста от серого к белому */
+    @keyframes fadeColor {
+      from { color: #888888; }
+      to { color: #FFFFFF; }
     }
   </style>
 </head>
