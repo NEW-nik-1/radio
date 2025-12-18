@@ -4,21 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Радио онлайн</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 10px;
+            background: #ffffff;
+            color: #000;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #000;
+        }
+
+        /* Автор */
+        .author {
+            position: fixed;
+            right: 15px;
+            bottom: 15px;
+            font-size: 14px;
+            color: #777;
+            text-decoration: none;
+            animation: authorGlow 2s infinite alternate;
+            transition: transform 0.3s ease;
+        }
+
+        .author:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes authorGlow {
+            from {
+                color: #777;
+            }
+            to {
+                color: #000;
+            }
+        }
+    </style>
 </head>
 <body>
+
     <h1>Слушайте Радио онлайн бесплатно</h1>
 
-    <!-- Код радио -->
-    <div class="RP-SCRIPT" data-height="2" data-style="dark"><a class="RP-LINK" href="https://radiopotok.ru/"></a></div><script defer src="https://radiopotok.ru/f/script6/fa6b649360b7f016c67fad805fc1a899185ce1369959c6b22856a9963d68e8ec.js" charset="UTF-8"></script>
+    <!-- Радио -->
+    <div class="RP-SCRIPT" data-height="2" data-style="dark">
+        <a class="RP-LINK" href="https://radiopotok.ru/"></a>
+    </div>
+    <script defer src="https://radiopotok.ru/f/script6/fa6b649360b7f016c67fad805fc1a899185ce1369959c6b22856a9963d68e8ec.js" charset="UTF-8"></script>
 
     <!-- VK Bridge -->
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-
     <script>
-        // Инициализация VK Bridge
         vkBridge.send('VKWebAppInit');
     </script>
 
+    <!-- Автор -->
+    <a href="https://example.com" target="_blank" class="author">
+        автор приложения
+    </a>
+
 </body>
 </html>
-
