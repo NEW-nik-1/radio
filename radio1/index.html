@@ -5,10 +5,16 @@
 <title>Radio UI</title>
 
 <style>
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  background: #fff;
   font-family: Arial, sans-serif;
-  background: #111;
+}
+
+/* убрали тёмный фон */
+body {
+  background: #fff;
 }
 
 .radio-bar {
@@ -30,7 +36,7 @@ body {
 .right-controls {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 button {
@@ -60,7 +66,7 @@ button:hover {
   max-height: 200px;
   overflow-y: auto;
   border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
@@ -79,7 +85,7 @@ button:hover {
 }
 
 .station:hover {
-  background: #ddd;
+  background: #eee;
 }
 
 .center-text {
@@ -90,7 +96,7 @@ button:hover {
   font-weight: bold;
   letter-spacing: 3px;
   opacity: 0.25;
-  background: linear-gradient(90deg, #000, #fff, #000);
+  background: linear-gradient(90deg, #000, #666, #000);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -104,24 +110,13 @@ button:hover {
   100% { background-position: 0% 0%; }
 }
 
-.visualizer {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 28px;
-  width: 90px;
-  opacity: 0.7;
-}
-
-.bar {
-  width: 4px;
-  height: 6px;
-  background: linear-gradient(to top, rgba(0,200,80,0.9), rgba(255,0,0,0.9));
-  transition: height 0.08s linear;
-}
-
 input[type="range"] {
   width: 120px;
+}
+
+/* убираем возможный "квадрат" у audio */
+audio {
+  outline: none;
 }
 </style>
 </head>
@@ -135,16 +130,16 @@ input[type="range"] {
     <button onclick="togglePlay()" id="playBtn">▶</button>
 
     <div class="dropdown">
-      <button>📻 Список радио</button>
+      <button>📻 Радио</button>
       <div class="dropdown-content">
         <div class="station" onclick="playRadio('https://stream-uk1.radioparadise.com/mp3-128')">Radio Paradise</div>
-        <div class="station" onclick="playRadio('https://icecast.radiofrance.fr/fip-midfi.mp3')">FIP Radio</div>
+        <div class="station" onclick="playRadio('https://icecast.radiofrance.fr/fip-midfi.mp3')">FIP</div>
         <div class="station" onclick="playRadio('https://icecast.omroep.nl/radio1-bb-mp3')">Radio 1 NL</div>
-        <div class="station" onclick="playRadio('https://stream.zeno.fm/0r0xa792kwzuv')">Chill Radio</div>
+        <div class="station" onclick="playRadio('https://stream.zeno.fm/0r0xa792kwzuv')">Chill</div>
       </div>
     </div>
 
-    <div class="visualizer" id="bars"></div>
+    <button onclick="openMiniWindow()">🪟</button>
 
   </div>
 
@@ -163,17 +158,6 @@ input[type="range"] {
 <script>
 const audio = document.getElementById("audio");
 const playBtn = document.getElementById("playBtn");
-const barsContainer = document.getElementById("bars");
-
-const BAR_COUNT = 18;
-
-for (let i = 0; i < BAR_COUNT; i++) {
-  const bar = document.createElement("div");
-  bar.className = "bar";
-  barsContainer.appendChild(bar);
-}
-
-const bars = document.querySelectorAll(".bar");
 
 function togglePlay() {
   if (!audio.src) return;
@@ -193,41 +177,38 @@ function playRadio(url) {
   playBtn.textContent = "⏸";
 }
 
-let audioCtx, analyser, source, dataArray;
+function openMiniWindow() {
+  const win = window.open(
+    "",
+    "miniRadio",
+    "width=300,height=120,left=200,top=200"
+  );
 
-function setupAudio() {
-  if (audioCtx) return;
+  win.document.write(`
+    <html>
+    <head>
+      <style>
+        body {
+          margin:0;
+          background:#fff;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          height:100vh;
+        }
+        audio {
+          width:260px;
+        }
+      </style>
+    </head>
+    <body>
+      <audio controls autoplay src="${audio.src}"></audio>
+    </body>
+    </html>
+  `);
 
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  analyser = audioCtx.createAnalyser();
-
-  source = audioCtx.createMediaElementSource(audio);
-  source.connect(analyser);
-  analyser.connect(audioCtx.destination);
-
-  analyser.fftSize = 64;
-  dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-  animate();
+  win.document.close();
 }
-
-function animate() {
-  requestAnimationFrame(animate);
-
-  if (!analyser) return;
-
-  analyser.getByteFrequencyData(dataArray);
-
-  bars.forEach((bar, i) => {
-    let value = dataArray[i % dataArray.length] || 0;
-    bar.style.height = (4 + (value / 255) * 24) + "px";
-  });
-}
-
-audio.addEventListener("play", () => {
-  setupAudio();
-  audioCtx.resume();
-});
 </script>
 
 </body>
