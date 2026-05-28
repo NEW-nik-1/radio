@@ -1,31 +1,88 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Club Zolushka</title>
-    <!-- VK Bridge -->
-    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-    <script>
-        // Инициализация VK Bridge
-        vkBridge.send('VKWebAppInit')
-            .then(() => console.log('VK Bridge инициализирован'))
-            .catch(err => console.error('Ошибка инициализации VK Bridge:', err));
-    </script>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Полноэкранный чат VK Mini App</title>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #111;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Контейнер чата */
+    #chat-container {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Растягиваем Chatodrom */
+    #chatodrom-widget,
+    .chatodrom-widget,
+    iframe[src*="chatodrom"] {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      border: 0 !important;
+      z-index: 999999 !important;
+      background: #111 !important;
+    }
+
+    /* Убираем возможные отступы VK */
+    body.vk-app {
+      padding-top: 0 !important;
+    }
+  </style>
 </head>
+
 <body>
-    <iframe src="https://m.volnorez.com/music-club-zolushka"></iframe>
+
+  <div id="chat-container"></div>
+
+  <!-- VK Bridge -->
+  <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+
+  <script>
+    // Инициализация VK Mini Apps
+    vkBridge.send('VKWebAppInit')
+      .then(() => {
+        console.log('VK Bridge инициализирован');
+
+        // Разворачиваем приложение на весь экран
+        vkBridge.send('VKWebAppExpand');
+
+        // Меняем цвет фона
+        vkBridge.send('VKWebAppSetViewSettings', {
+          status_bar_style: 'light',
+          action_bar_color: '#111111'
+        });
+
+      })
+      .catch((err) => {
+        console.error('Ошибка VK Bridge:', err);
+      });
+  </script>
+
+  <!-- Chatodrom -->
+  <script
+    src="https://chatodrom.com/chat/embed.js"
+    data-title="Чат"
+    data-open="true"
+    data-chat-id="chat-radio"
+    data-mode="fullscreen">
+  </script>
+
 </body>
 </html>
