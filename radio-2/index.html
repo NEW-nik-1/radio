@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Переход...</title>
 
-    <!-- VK Bridge -->
+    
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
     <script>
         vkBridge.send('VKWebAppInit');
     </script>
 
-    <!-- Резервный редирект -->
+    
     <meta http-equiv="refresh" content="0; url=https://volnorez.com/music-club-zolushka">
 </head>
 <body>
 
 <script>
-    // После инициализации VK Bridge выполняем переход
+    
     vkBridge.send('VKWebAppInit')
         .then(() => {
             window.location.replace('https://volnorez.com/music-club-zolushka');
@@ -27,7 +27,7 @@
         });
 </script>
 
-<p>Переход на страницу...</p>
+<p>Переход на страницу.music-club-zolushka..</p>
 <p>
     Если переход не произошёл автоматически, на music-club-zolushka
     <a href="https://volnorez.com/music-club-zolushka">нажмите здесь</a>.
