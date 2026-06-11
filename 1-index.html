@@ -2,24 +2,94 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Volnorez</title>
 
+    <!-- VK Bridge -->
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .loader {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e5e5e5;
+            border-top: 5px solid #5181b8;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .text {
+            color: #333;
+            font-size: 18px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
+<div class="loader" id="loader">
+    <div class="spinner"></div>
+    <div class="text">Загрузка Volnorez...</div>
+</div>
+
+<iframe id="siteFrame" src="about:blank"></iframe>
+
 <script>
 (async () => {
-    try {
-        await vkBridge.send('VKWebAppInit');
+    const URL = "https://m.volnorez.com/";
 
-        await vkBridge.send('VKWebAppOpenURL', {
-            url: 'https://m.volnorez.com/'
-        });
-    } catch (e) {
-        console.error(e);
-        location.href = 'https://m.volnorez.com/';
+    try {
+        if (typeof vkBridge !== "undefined") {
+            await vkBridge.send("VKWebAppInit");
+
+            try {
+                await vkBridge.send("VKWebAppOpenURL", {
+                    url: URL
+                });
+            } catch (e) {
+                window.location.href = URL;
+            }
+        } else {
+            window.location.href = URL;
+        }
+    } catch (err) {
+        console.error(err);
+        window.location.href = URL;
     }
 })();
 </script>
